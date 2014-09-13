@@ -3,6 +3,8 @@ package utilities;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -10,25 +12,27 @@ import main.ETConsole;
 
 public class PAK3 {
 	
-	public static ArrayList<ZipEntry> load(String filePath, ETConsole console) throws IOException {
-		if(filePath.contains(".") && !filePath.split("\\.")[1].equals("pk3")) {
-			console.println("WARNING: " + filePath + " is an invalid pak3 file.");
-			return null;
-		}
+	public static void load(Map<String, ArrayList<ZipEntry>> pakList, ArrayList<ZipEntry> entryList, String filePath, ETConsole console) throws IOException {
+		if(filePath.contains(".") && !filePath.split("\\.")[1].equals("pk3"))
+			return;
 		
-		ArrayList<ZipEntry> fileList = new ArrayList<ZipEntry>();
 		ZipInputStream stream = new ZipInputStream(new FileInputStream(filePath));
 		ZipEntry entry = stream.getNextEntry();
-				
+		
+		Date date = new Date();
+		
+		console.print(DateExtender.leadingZeros(date.getHours()) + ":" + DateExtender.leadingZeros(date.getMinutes()) + ":" + DateExtender.leadingZeros(date.getSeconds()) + " - Loading " + filePath + "...");
+		
 		while(entry != null) {
-			fileList.add(entry);
+			entryList.add(entry);
 			entry = stream.getNextEntry();
 		}
 		
 		stream.closeEntry();
 		stream.close();
 		
-		return fileList;
+		console.println(" complete.");
+		pakList.put(filePath, entryList);
 	}
 	
 	
