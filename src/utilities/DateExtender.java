@@ -1,7 +1,5 @@
 package utilities;
 
-import java.util.Date;
-
 public class DateExtender {
 
 	public static String leadingZeros(int time)
