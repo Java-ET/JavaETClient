@@ -14,7 +14,6 @@ import utilities.PAK3;
 public class ClientCore {
 	private static ImageIcon icon = new ImageIcon("icon.png");
 	private static Map<String, ArrayList<ZipEntry>> pakList = new HashMap<String, ArrayList<ZipEntry>>();
-	private static ArrayList<ZipEntry> entryList = new ArrayList<ZipEntry>();
 	
 	public static void main(String[] args) {
 		ETConsole console = new ETConsole();
@@ -25,7 +24,8 @@ public class ClientCore {
 			Files.walk(Paths.get("jetmain/")).forEach(filePath -> {
 				if (!Files.isRegularFile(filePath))
 					return;
-			
+				
+				ArrayList<ZipEntry> entryList = new ArrayList<ZipEntry>();
 				try {
 					PAK3.load(pakList, entryList, filePath.toString(), console);
 				} catch (Exception e) {
