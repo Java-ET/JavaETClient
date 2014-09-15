@@ -1,3 +1,4 @@
+/*
 package utilities;
 
 import java.io.BufferedReader;
@@ -150,3 +151,4 @@ public class BSPHandler {
 		bspHandler.loadBSP();
 	}
 }
+*/
