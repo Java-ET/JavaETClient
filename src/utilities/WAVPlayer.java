@@ -35,10 +35,9 @@ public class WAVPlayer
       myThread = new Thread(){
          public void run()
          {
-            while(true)
+            while(!this.isInterrupted())
             {
-               if(!this.isInterrupted())
-                  play();
+            	play();
             }
          }
       };
@@ -50,14 +49,14 @@ public class WAVPlayer
       myThread.interrupt();
    }
    
-   public void play()
+   public boolean play()
    {
       File soundFile = new File(fileName);
       
       if(!soundFile.exists())
       {
          System.err.println("Error. File not found.");
-         return;
+         return false;
       }
       
       AudioInputStream aiS = null;
@@ -112,6 +111,6 @@ public class WAVPlayer
          audioLine.drain();
          audioLine.close();
       }
-      
+      return true;
    }
 }
