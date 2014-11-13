@@ -19,6 +19,14 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * @author JavaET
  *
  */
+class MyThread extends Thread
+{
+	public MyThread()
+	{
+		setDaemon(true);
+	}
+}
+
 public class WAVPlayer
 {
    private String fileName;
@@ -32,7 +40,7 @@ public class WAVPlayer
    
    public void loopPlay()
    {
-      myThread = new Thread(){
+      myThread = new MyThread(){
          public void run()
          {
             while(!this.isInterrupted())
@@ -47,6 +55,21 @@ public class WAVPlayer
    public void stopLoop()
    {
       myThread.interrupt();
+   }
+   
+   public void playOnce()
+   {
+	   myThread = new MyThread(){
+		   public void run()
+		   {
+			   while(!this.isInterrupted())
+			   {
+				   play();
+				   this.interrupt();
+			   }
+		   }
+	   };
+	   myThread.start();
    }
    
    public boolean play()
