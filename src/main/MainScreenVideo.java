@@ -1,12 +1,12 @@
 package main;
 
+import java.awt.Frame;
 import java.io.File;
 
 import javax.swing.JFrame;
 
 import utilities.WAVPlayer;
 import javafx.application.Application;
-
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -93,7 +93,7 @@ public class MainScreenVideo extends Application
 		lb2.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
-			public void handle(MouseEvent arg0) {
+			public void handle(MouseEvent e) {
 				lb2.setStyle("-fx-pref-width:280;-fx-text-fill:white;-fx-font-size:13;-fx-padding:10;-fx-background-color:rgba(0, 0, 0, 0.9);-fx-text-alignment:center;");
 				selectSound.playOnce();
 			}
@@ -102,7 +102,7 @@ public class MainScreenVideo extends Application
 		lb2.setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
-			public void handle(MouseEvent arg0) {
+			public void handle(MouseEvent e) {
 				lb2.setStyle("-fx-pref-width:280;-fx-text-fill:white;-fx-font-size:13;-fx-padding:10;-fx-background-color:rgba(0, 0, 0, 0.5);-fx-text-alignment:center;");
 			}
 		});
@@ -115,7 +115,7 @@ public class MainScreenVideo extends Application
 		lb3.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
-			public void handle(MouseEvent arg0) {
+			public void handle(MouseEvent e) {
 				lb3.setStyle("-fx-pref-width:280;-fx-text-fill:white;-fx-font-size:13;-fx-padding:10;-fx-background-color:rgba(0, 0, 0, 0.9);-fx-text-alignment:center;");
 				selectSound.playOnce();
 			}
@@ -124,7 +124,7 @@ public class MainScreenVideo extends Application
 		lb3.setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
-			public void handle(MouseEvent arg0) {
+			public void handle(MouseEvent e) {
 				lb3.setStyle("-fx-pref-width:280;-fx-text-fill:white;-fx-font-size:13;-fx-padding:10;-fx-background-color:rgba(0, 0, 0, 0.5);-fx-text-alignment:center;");
 			}
 		});
@@ -137,30 +137,70 @@ public class MainScreenVideo extends Application
 		lb4.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
-			public void handle(MouseEvent arg0) {
+			public void handle(MouseEvent e) {
 				lb4.setStyle("-fx-pref-width:280;-fx-text-fill:white;-fx-font-size:13;-fx-padding:10;-fx-background-color:rgba(0, 0, 0, 0.9);-fx-text-alignment:center;");
 				selectSound.playOnce();
 			}
+		});
+		
+		lb4.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent e) {
+				dialog("Hello World");
+			}
+			
 		});
 
 		lb4.setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
-			public void handle(MouseEvent arg0) {
+			public void handle(MouseEvent e) {
 				lb4.setStyle("-fx-pref-width:280;-fx-text-fill:white;-fx-font-size:13;-fx-padding:10;-fx-background-color:rgba(0, 0, 0, 0.5);-fx-text-alignment:center;");
 			}
 		});
 		
+		Label lb5 = new Label("Quit \u00BB");
+		lb5.setStyle("-fx-pref-width:280;-fx-text-fill:white;-fx-font-size:13;-fx-padding:10;-fx-background-color:rgba(0, 0, 0, 0.5);-fx-text-alignment:center;");
+		
+		lb5.setCursor(Cursor.HAND);
+		
+		lb5.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent e) {
+				lb5.setStyle("-fx-pref-width:280;-fx-text-fill:white;-fx-font-size:13;-fx-padding:10;-fx-background-color:rgba(0, 0, 0, 0.9);-fx-text-alignment:center;");
+				selectSound.playOnce();
+			}
+		});
+
+		lb5.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent e) {
+				lb5.setStyle("-fx-pref-width:280;-fx-text-fill:white;-fx-font-size:13;-fx-padding:10;-fx-background-color:rgba(0, 0, 0, 0.5);-fx-text-alignment:center;");
+			}
+		});
+		
+		lb5.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			
+			@Override
+			public void handle(MouseEvent e)
+			{
+				System.exit(0);
+				
+			}
+		});
 		
 		lb2.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
-			public void handle(MouseEvent arg0)
+			public void handle(MouseEvent e)
 			{
 				dialog("LOL");
 			}
 		});
 		
-		tP.getChildren().addAll(lb, lb2, lb3, lb4);
+		tP.getChildren().addAll(lb, lb2, lb3, lb4, lb5);
 		
 		
 		/* MENU BOX END */ 
@@ -208,7 +248,8 @@ public class MainScreenVideo extends Application
 	public void dialog(String msg)
 	{
 		Stage dialogStage = new Stage();
-		dialogStage.initModality(Modality.WINDOW_MODAL);
+//		dialogStage.initModality(Modality.WINDOW_MODAL);
+		dialogStage.initStyle(StageStyle.UNDECORATED);
 		dialogStage.setScene(new Scene(VBoxBuilder.create().
 		    children(new Text("Hi"), new Button("Ok.")).
 		    alignment(Pos.CENTER).padding(new Insets(5)).build()));
@@ -219,4 +260,24 @@ public class MainScreenVideo extends Application
 	{
 		mainMusic.stopLoop();
 	}
+	
+}
+
+class CustomDialogMessage extends Application
+{
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public void start(Stage stage) throws Exception {
+		stage.initStyle(StageStyle.UNDECORATED);
+		
+		stage.setScene(new Scene(VBoxBuilder.create().
+			    children(new Text("Hi"), new Button("Ok.")).
+			    alignment(Pos.CENTER).padding(new Insets(5)).build()));
+		stage.show();
+		
+		
+		
+	}
+	
 }
