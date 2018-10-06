@@ -1,10 +1,10 @@
 package main;
 
-import java.awt.Frame;
 import java.io.File;
 
 import javax.swing.JFrame;
 
+import javafx.scene.layout.VBox;
 import utilities.WAVPlayer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -19,12 +19,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.*;
@@ -250,9 +248,15 @@ public class MainScreenVideo extends Application
 		Stage dialogStage = new Stage();
 //		dialogStage.initModality(Modality.WINDOW_MODAL);
 		dialogStage.initStyle(StageStyle.UNDECORATED);
-		dialogStage.setScene(new Scene(VBoxBuilder.create().
-		    children(new Text("Hi"), new Button("Ok.")).
-		    alignment(Pos.CENTER).padding(new Insets(5)).build()));
+		
+		VBox vbox = new VBox();
+		
+		vbox.getChildren().add(new Text("Hi"));
+		vbox.getChildren().add(new Button("Ok."));
+		vbox.setAlignment(Pos.CENTER);
+		vbox.setPadding(new Insets(5));
+		
+		dialogStage.setScene(new Scene(vbox));
 		dialogStage.show();
 	}
 	
@@ -271,9 +275,14 @@ class CustomDialogMessage extends Application
 	public void start(Stage stage) throws Exception {
 		stage.initStyle(StageStyle.UNDECORATED);
 		
-		stage.setScene(new Scene(VBoxBuilder.create().
-			    children(new Text("Hi"), new Button("Ok.")).
-			    alignment(Pos.CENTER).padding(new Insets(5)).build()));
+		VBox vbox = new VBox();
+		
+		vbox.getChildren().add(new Text("Hi"));
+		vbox.getChildren().add(new Button("Ok."));
+		vbox.setAlignment(Pos.CENTER);
+		vbox.setPadding(new Insets(5));
+		
+		stage.setScene(new Scene(vbox));
 		stage.show();
 		
 		
